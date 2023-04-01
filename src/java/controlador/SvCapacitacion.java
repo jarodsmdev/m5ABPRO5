@@ -1,4 +1,6 @@
-
+/**
+ * @author: Leonel Briones Palacios
+ */
 package controlador;
 
 import conexion.ConexionSingleton;

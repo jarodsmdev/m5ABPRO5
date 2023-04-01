@@ -37,7 +37,7 @@
                             <select name="rutCliente" id="rutCliente" class="form-select" required id="rutCliente">
                                 <option selected disabled value=""">Seleccione un Cliente</option>
                                 <c:forEach var="cliente" items="${listaClientes}">
-                                    <option value="${cliente.rut}">${cliente.obtenerNombreApellido()}</option>
+                                    <option value="${cliente.rut}">${cliente.obtenerNombre()}</option>
                                 </c:forEach>
                             </select>
                             <label for="rutCliente" class="ps-4">Cliente:</label>
