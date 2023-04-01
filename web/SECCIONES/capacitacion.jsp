@@ -32,33 +32,35 @@
                 
                 <form action="SvCapacitacion" method="POST" class="needs-validation" novalidate>
 
-                    <div class="form-floating mb-3">
-                        <select name="rutCliente" id="rutCliente" class="form-select" required id="rutCliente">
-                            <option selected disabled value=""">Seleccione un Cliente</option>
-                            <c:forEach var="cliente" items="${listaClientes}">
-                                <option value="${cliente.rut}">${cliente.obtenerNombreApellido()}</option>
-                            </c:forEach>
-                        </select>
-                        <label for="rutCliente">Cliente:</label>
+                    <div class="row">
+                        <div class="form-floating mb-3 col-xs-12 col-sm-12 col-md-4">
+                            <select name="rutCliente" id="rutCliente" class="form-select" required id="rutCliente">
+                                <option selected disabled value=""">Seleccione un Cliente</option>
+                                <c:forEach var="cliente" items="${listaClientes}">
+                                    <option value="${cliente.rut}">${cliente.obtenerNombreApellido()}</option>
+                                </c:forEach>
+                            </select>
+                            <label for="rutCliente" class="ps-4">Cliente:</label>
                             <div class="invalid-feedback">
                                 Por favor seleccione un Cliente.
                             </div>
+                        </div>
 
+                        <div class="form-floating mb-3 col-xs-6 col-sm-6 col-md-4">
+                            <input type="date" class="form-control" placeholder="Fecha" id="hora" name="fecha" required="">
+                            <label for="fecha" class="ps-4">Fecha:</label>
+                            <div class="invalid-feedback">
+                                Por favor ingrese una fecha.
+                            </div>
+                        </div>    
+
+                        <div class="form-floating mb-3 col-xs-6 col-sm-6 col-md-4">
+                            <input type="time" class="form-control" placeholder="Hora" id="hora" name="hora" value="22:00">
+                            <label for="hora" class="ps-4">Hora:</label>
+                        </div>
+    
                     </div>
                     
-                    <div class="form-floating mb-3">
-                        <input type="date" class="form-control" placeholder="Fecha" id="hora" name="fecha" required="">
-                        <label for="fecha">Fecha:</label>
-                        <div class="invalid-feedback">
-                            Por favor ingrese una fecha.
-                        </div>
-                    </div>    
-    
-                    <div class="form-floating mb-3">
-                        <input type="time" class="form-control" placeholder="Hora" id="hora" name="hora" value="22:00">
-                        <label for="hora">Hora:</label>
-                    </div>
-    
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" placeholder="Lugar" id="lugar" name="lugar" required>
                         <label for="lugar">Lugar:</label>
@@ -67,24 +69,28 @@
                         </div>
                     </div>
     
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" maxlength="70" placeholder="Duración" id="duracion" name="duracion" required>
-                        <label for="duracion">Duración:</label>
-                        <div class="invalid-feedback">
-                            Por favor ingrese duración en minutos.
+                    <div class="row">
+                        <div class="form-floating mb-3 col-xs-6 col-sm-6">
+                            <input type="text" class="form-control" maxlength="70" placeholder="Duración" id="duracion" name="duracion" required>
+                            <label for="duracion" class="ps-4">Duración:</label>
+                            <div class="invalid-feedback">
+                                Por favor ingrese duración en minutos.
+                            </div>
+                        </div>
+
+                        <div class="form-floating mb-3 col-xs-6 col-sm-6">
+                            <input type="text" class="form-control" required placeholder="Cantidad de Asistentes" id="cantAsistentes" name="cantAsistentes">
+                            <label for="cantAsistentes" class="ps-4">Cantidad de Asistentes:</label>
+                            <div class="invalid-feedback">
+                                Por favor ingrese cantidad de asistentes.
+                            </div>
                         </div>
                     </div>
-    
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" required placeholder="Cantidad de Asistentes" id="cantAsistentes" name="cantAsistentes">
-                        <label for="cantAsistentes">Cantidad de Asistentes:</label>
-                        <div class="invalid-feedback">
-                            Por favor ingrese cantidad de asistentes.
-                        </div>
-                    </div>
-    
                    
-                    <input type="submit" value="Guardar" class="btn btn-primary w-25">
+                    <div class="d-grid gap-2 d-md-block d-md-flex justify-content-md-around mt-3 mb-5">
+                        <input type="submit" value="Guardar" class="btn btn-primary col-md-5">
+                        <input type="reset" value="Limpiar" class="btn btn-danger col-md-5">
+                    </div>
                       
                 </form>
         </main>
