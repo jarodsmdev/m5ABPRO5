@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlets;
+package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author jarod
  */
-@WebServlet(name = "SvInicio", urlPatterns = {"/SvInicio"})
-public class SvInicio extends HttpServlet {
+@WebServlet(name = "SvContacto", urlPatterns = {"/SvContacto"})
+public class SvContacto extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,10 @@ public class SvInicio extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SvInicio</title>");            
+            out.println("<title>Servlet SvContacto</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SvInicio at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SvContacto at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,10 +59,21 @@ public class SvInicio extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
         
-        //processRequest(request, response);
-        response.sendRedirect("index.jsp");
+        if(session.getAttribute("nombre") == null){
+            response.sendRedirect(request.getContextPath() + "/SvLogin");
+        }
+        else {
+            //response.sendRedirect(request.getContextPath() + "/SvContacto");
+            //response.sendRedirect("SvContacto");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/contacto.jsp");
+            dispatcher.forward(request, response);
+        }
+     
     }
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -75,7 +86,9 @@ public class SvInicio extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         processRequest(request, response);
+        
         
     }
 

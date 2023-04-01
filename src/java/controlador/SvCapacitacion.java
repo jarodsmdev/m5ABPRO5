@@ -1,5 +1,5 @@
 
-package servlets;
+package controlador;
 
 import conexion.ConexionSingleton;
 import dao.DAOException;
