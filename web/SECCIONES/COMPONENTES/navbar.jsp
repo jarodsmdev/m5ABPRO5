@@ -34,7 +34,7 @@
                         Menú Gestión
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Crear Usuario</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/SvUsuario">Crear Usuario</a></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/SvListarUsuarios">Listar Usuarios</a></li>
                     </ul>
                 </li>

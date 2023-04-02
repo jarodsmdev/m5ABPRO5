@@ -27,7 +27,7 @@ import mysql.MySQLDaoManager;
 
 /**
  *
- * @author jarod
+ * @author Leonel Briones Palacios
  */
 @WebServlet(name = "SvCapacitacion", urlPatterns = {"/SvCapacitacion"})
 public class SvCapacitacion extends HttpServlet {
