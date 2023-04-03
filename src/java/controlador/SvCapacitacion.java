@@ -1,5 +1,5 @@
 
-package servlets;
+package controlador;
 
 import conexion.ConexionSingleton;
 import dao.DAOException;
@@ -95,10 +95,10 @@ public class SvCapacitacion extends HttpServlet {
                     //5.a LEER CADA CAMPO, PARA CREAR OBJETO CLIENTE EN CADA ITERACIÓN
                     Cliente cliente = new Cliente();
 
-                    cliente.setId(rs.getInt("id"));
-                    cliente.setRut(rs.getInt("rutCliente"));
-                    cliente.setNombre(rs.getString("CliNombres"));
-                    cliente.setApellido(rs.getString("CliApellidos"));
+                    cliente.setIdUsuario(rs.getInt("id"));
+                    cliente.setRutUsuario(rs.getInt("rutCliente"));
+                    cliente.setNombreUsuario(rs.getString("CliNombres"));
+                    cliente.setApellidoUsuario(rs.getString("CliApellidos"));
 
                     //5.a AÑADIR CLIENTE A LA LISTA
                     listaClientes.add(cliente);
@@ -147,10 +147,10 @@ public class SvCapacitacion extends HttpServlet {
             
             //3. SETEAR LOS DATOS DEL OBJETO
             capacitacion.setRutCliente(rut);
-            capacitacion.setFecha(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
-            capacitacion.setHora(hora);
-            capacitacion.setLugar(lugar);
-            capacitacion.setDuracion(duracion);
+            capacitacion.setFechaCapacitacion(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
+            capacitacion.setHoraCapacitacion(hora);
+            capacitacion.setLugarCapacitacion(lugar);
+            capacitacion.setDuracionCapacitacion(duracion);
             
             //System.out.println(capacitacion.toString());
             

@@ -1,97 +1,80 @@
-
 package modelo;
 
+import java.util.Date;
 
-public class Cliente {
-    //ATRIBUTOS DE CLASE
-    private Integer id;
-    private int rut;
-    private String nombre;
-    private String apellido;
-    
-    /**
-     * CONSTRUCTOR PREDETERMINADO
-     */
-    public Cliente(){}
-    
-    /**
-     * CONSTRUCTOR PARAMETRIZADO
-     * @param id
-     * @param rut
-     * @param nombre
-     * @param apellido 
-     */
-    public Cliente(int id, int rut, String nombre, String apellido){
-        this.id = id;
-        this.rut = rut;
-        this.nombre = nombre;
-        this.apellido = apellido;
+public class Cliente extends Usuario {
+
+    private int telefonoCliente;
+    private String afpCliente;
+    private int sistemaSaludCliente;
+    private String direccionCliente;
+    private String comunaCliente;
+    private int edadCliente;
+
+    public Cliente() {
     }
 
-    /**
-     * Método Getter
-     * @return 
-     */
-    public int getId() {
-        return id;
-    }
-    /**
-     * Método Setter
-     * @param id 
-     */
-    public void setId(int id) {
-        this.id = id;
+    public Cliente(int telefonoCliente, String afpCliente, int sistemaSaludCliente, String direccionCliente, String comunaCliente, int edadCliente, int idUsuario, String nombreUsuario, String apellidoUsuario, int rutUsuario, Date fechaNacimientoUsuario) {
+        super(idUsuario, nombreUsuario, apellidoUsuario, rutUsuario, fechaNacimientoUsuario);
+        this.telefonoCliente = telefonoCliente;
+        this.afpCliente = afpCliente;
+        this.sistemaSaludCliente = sistemaSaludCliente;
+        this.direccionCliente = direccionCliente;
+        this.comunaCliente = comunaCliente;
+        this.edadCliente = edadCliente;
     }
 
-    /**
-     * Método Getter
-     * @return 
-     */
-    public int getRut() {
-        return rut;
+    public int getTelefonoCliente() {
+        return telefonoCliente;
     }
 
-    /**
-     * Método Setter
-     * @param rut 
-     */
-    public void setRut(int rut) {
-        this.rut = rut;
+    public void setTelefonoCliente(int telefonoCliente) {
+        this.telefonoCliente = telefonoCliente;
     }
 
-    /**
-     * Método Getter
-     * @return 
-     */
-    public String getNombre() {
-        return nombre;
+    public String getAfpCliente() {
+        return afpCliente;
     }
 
-    /**
-     * Método Setter
-     * @param nombre 
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setAfpCliente(String afpCliente) {
+        this.afpCliente = afpCliente;
     }
 
-    /**
-     * Método Getter
-     * @return 
-     */
-    public String getApellido() {
-        return apellido;
+    public int getSistemaSaludCliente() {
+        return sistemaSaludCliente;
     }
 
-    /**
-     * Método Setter
-     * @param apellido 
-     */
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setSistemaSaludCliente(int sistemaSaludCliente) {
+        this.sistemaSaludCliente = sistemaSaludCliente;
     }
-    
-    public String obtenerNombreApellido(){
-        return nombre + " " + apellido;
+
+    public String getDireccionCliente() {
+        return direccionCliente;
     }
+
+    public void setDireccionCliente(String direccionCliente) {
+        this.direccionCliente = direccionCliente;
+    }
+
+    public String getComunaCliente() {
+        return comunaCliente;
+    }
+
+    public void setComunaCliente(String comunaCliente) {
+        this.comunaCliente = comunaCliente;
+    }
+
+    public int getEdadCliente() {
+        return edadCliente;
+    }
+
+    public void setEdadCliente(int edadCliente) {
+        this.edadCliente = edadCliente;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "telefonoCliente=" + telefonoCliente + ", afpCliente=" + afpCliente + ", sistemaSaludCliente=" + sistemaSaludCliente + ", direccionCliente=" + direccionCliente + ", comunaCliente=" + comunaCliente + ", edadCliente=" + edadCliente + '}';
+    }
+
 }

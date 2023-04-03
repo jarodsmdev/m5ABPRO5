@@ -47,7 +47,7 @@
                     </div>
                     
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control" placeholder="Fecha" id="hora" name="fecha" required="">
+                        <input type="date" class="form-control" placeholder="Fecha" id="fecha" name="fecha" required="">
                         <label for="fecha">Fecha:</label>
                         <div class="invalid-feedback">
                             Por favor ingrese una fecha.

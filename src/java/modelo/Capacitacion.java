@@ -1,134 +1,87 @@
-
 package modelo;
 
 import java.util.Date;
 
 /**
  * Clase Capacitación
+ *
  * @author Leonel Briones
  */
 public class Capacitacion {
-    private int id;
-    private Date fecha;
-    private String hora;
-    private String lugar;
-    private int duracion;
+
+    private int idCapacitacion;
+    private Date fechaCapacitacion;
+    private String horaCapacitacion;
+    private String lugarCapacitacion;
+    private int duracionCapacitacion;
     private int rutCliente;
-    
+
     /**
      * Constructor Predeterminado
      */
-    public Capacitacion(){}
-    
-    /**
-     * Constructor Parametrizado con todos los atributos de clase
-     * @param fecha
-     * @param hora
-     * @param lugar
-     * @param duracion
-     * @param rutCliente 
-     */
-    public Capacitacion(int id, Date fecha, String hora, String lugar, int duracion, int rutCliente){
-        this.id = id;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.lugar = lugar;
-        this.duracion = duracion;
+    public Capacitacion() {
+    }
+
+    public Capacitacion(int idCapacitacion, Date fechaCapacitacion, String horaCapacitacion, String lugarCapacitacion, int duracionCapacitacion, int rutCliente) {
+        this.idCapacitacion = idCapacitacion;
+        this.fechaCapacitacion = fechaCapacitacion;
+        this.horaCapacitacion = horaCapacitacion;
+        this.lugarCapacitacion = lugarCapacitacion;
+        this.duracionCapacitacion = duracionCapacitacion;
         this.rutCliente = rutCliente;
     }
 
-    public int getId() {
-        return id;
+    public int getIdCapacitacion() {
+        return idCapacitacion;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdCapacitacion(int idCapacitacion) {
+        this.idCapacitacion = idCapacitacion;
     }
 
-    /**
-     * Método Getter
-     * @return 
-     */
-    public Date getFecha() {
-        return fecha;
-    }
-    
-    /**
-     * Método Setter
-     * @param fecha 
-     */
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public Date getFechaCapacitacion() {
+        return fechaCapacitacion;
     }
 
-    /**
-     * Método Getter
-     * @return 
-     */
-    public String getHora() {
-        return hora;
+    public void setFechaCapacitacion(Date fechaCapacitacion) {
+        this.fechaCapacitacion = fechaCapacitacion;
     }
 
-    /**
-     * Método Setter
-     * @param hora 
-     */
-    public void setHora(String hora) {
-        this.hora = hora;
+    public String getHoraCapacitacion() {
+        return horaCapacitacion;
     }
 
-    /**
-     * Método Getter
-     * @return 
-     */
-    public String getLugar() {
-        return lugar;
+    public void setHoraCapacitacion(String horaCapacitacion) {
+        this.horaCapacitacion = horaCapacitacion;
     }
 
-    /**
-     * Método Setter
-     * @param lugar 
-     */
-    public void setLugar(String lugar) {
-        this.lugar = lugar;
+    public String getLugarCapacitacion() {
+        return lugarCapacitacion;
     }
 
-    /**
-     * Método Getter
-     * @return 
-     */
-    public int getDuracion() {
-        return duracion;
+    public void setLugarCapacitacion(String lugarCapacitacion) {
+        this.lugarCapacitacion = lugarCapacitacion;
     }
 
-    /**
-     * Método Setter
-     * @param duracion 
-     */
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
+    public int getDuracionCapacitacion() {
+        return duracionCapacitacion;
     }
 
-    /**
-     * Método Getter
-     * @return 
-     */
+    public void setDuracionCapacitacion(int duracionCapacitacion) {
+        this.duracionCapacitacion = duracionCapacitacion;
+    }
+
     public int getRutCliente() {
         return rutCliente;
     }
 
-    /**
-     * Método Setter
-     * @param rutCliente 
-     */
     public void setRutCliente(int rutCliente) {
         this.rutCliente = rutCliente;
     }
 
     @Override
     public String toString() {
-        return "Capacitacion{" + "id=" + id + ", fecha=" + fecha + ", hora=" + hora + ", lugar=" + lugar + ", duracion=" + duracion + ", rutCliente=" + rutCliente + '}';
+        return "Capacitacion{" + "idCapacitacion=" + idCapacitacion + ", fechaCapacitacion=" + fechaCapacitacion + ", horaCapacitacion=" + horaCapacitacion + ", lugarCapacitacion=" + lugarCapacitacion + ", duracionCapacitacion=" + duracionCapacitacion + ", rutCliente=" + rutCliente + '}';
     }
-    
-    
+
 }

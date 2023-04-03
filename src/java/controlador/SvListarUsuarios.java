@@ -2,26 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlets;
+package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Yo
  */
-@WebServlet(name = "SvLogin", urlPatterns = {"/SvLogin"})
-public class SvLogin extends HttpServlet {
-   
+@WebServlet(name = "SvListarUsuarios", urlPatterns = {"/SvListarUsuarios"})
+public class SvListarUsuarios extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +36,10 @@ public class SvLogin extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SvLogin</title>");            
+            out.println("<title>Servlet SvListarUsuarios</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SvLogin at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SvListarUsuarios at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -54,27 +50,16 @@ public class SvLogin extends HttpServlet {
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
-     * @param response servlet responses
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        
-        if(session.getAttribute("nombre") != null){
-            //SI EXISTE, ELIMINAR EL ATRIBUTO
-            session.removeAttribute("nombre");
-            response.sendRedirect("SvContacto");
-        }
-        else{
-            response.sendRedirect("SECCIONES/login.jsp");
-        }
-
-
+        processRequest(request, response);
     }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -86,35 +71,9 @@ public class SvLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // processRequest(request, response);
-               
-    String user = request.getParameter("user");
-    String pass = request.getParameter("pass");
-
-        if (user == null || pass == null || !validar(user, pass)) {
-            request.setAttribute("mensajeError", "Credenciales inválidas.");
-            //response.sendRedirect("SECCIONES/login.jsp");
-            request.getRequestDispatcher("SECCIONES/login.jsp").forward(request, response);
-        }
-        else {
-            HttpSession sesion = request.getSession();
-            sesion.setAttribute("nombre", user);
-            response.sendRedirect("SECCIONES/contacto.jsp");
-            
-        }
+        processRequest(request, response);
     }
 
-    public boolean validar(String nombre, String password) {
-        HashMap<String, String> usuarios = new HashMap<String, String>();
-        usuarios.put("leonel", "123");
-        usuarios.put("fernanda", "123");
-        usuarios.put("jorge", "123");
-        usuarios.put("mauricio", "123");
-        usuarios.put("admin", "1234");
-        return usuarios.containsKey(nombre) && usuarios.get(nombre).equals(password);
-    }
-    
-    
     /**
      * Returns a short description of the servlet.
      *

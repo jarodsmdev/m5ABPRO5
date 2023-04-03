@@ -31,10 +31,10 @@ public class MySQLCapacitacionDAO implements CapacitacionDAO{
         PreparedStatement st = null;
         try{
             st = conn.prepareStatement(INSERT);
-            st.setDate(1, new Date(c.getFecha().getTime()));
-            st.setString(2, c.getHora());
-            st.setString(3, c.getLugar());
-            st.setInt(4, c.getDuracion());
+            st.setDate(1, new Date(c.getFechaCapacitacion().getTime()));
+            st.setString(2, c.getHoraCapacitacion());
+            st.setString(3, c.getLugarCapacitacion());
+            st.setInt(4, c.getDuracionCapacitacion());
             st.setInt(5, c.getRutCliente());
             
             if(st.executeUpdate() == 0){
@@ -68,11 +68,11 @@ public class MySQLCapacitacionDAO implements CapacitacionDAO{
         
         Capacitacion capacitacion = new Capacitacion();
 
-        capacitacion.setId(rs.getInt("idCapacitacion"));
-        capacitacion.setFecha(rs.getDate("capFecha"));
-        capacitacion.setHora(rs.getString("capHora"));
-        capacitacion.setLugar(rs.getString("capLugar"));
-        capacitacion.setDuracion(rs.getInt("capDuracion"));
+        capacitacion.setIdCapacitacion(rs.getInt("idCapacitacion"));
+        capacitacion.setFechaCapacitacion(rs.getDate("capFecha"));
+        capacitacion.setHoraCapacitacion(rs.getString("capHora"));
+        capacitacion.setLugarCapacitacion(rs.getString("capLugar"));
+        capacitacion.setDuracionCapacitacion(rs.getInt("capDuracion"));
         capacitacion.setRutCliente(rs.getInt("cliente_rutCliente"));
         
         return capacitacion;

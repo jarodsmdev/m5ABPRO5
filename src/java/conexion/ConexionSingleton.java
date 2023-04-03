@@ -13,7 +13,7 @@ public class ConexionSingleton {
         String url = "jdbc:mysql://localhost:3306/SPRINT_PREV_RIESGOS";
         String driver = "com.mysql.cj.jdbc.Driver";
         String user = "root";
-        String password = "12345";
+        String password = "123Gronorf321";
         
         try{
             Class.forName(driver);
