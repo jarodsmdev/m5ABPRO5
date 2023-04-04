@@ -53,7 +53,7 @@
                             <div class="invalid-feedback">
                                 Por favor ingrese una fecha.
                             </div>
-                        </div>    
+                        </div>
 
                         <div class="form-floating mb-3 col-xs-6 col-sm-6 col-md-4">
                             <input type="time" class="form-control" placeholder="Hora" id="hora" name="hora" value="22:00">

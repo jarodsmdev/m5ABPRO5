@@ -4,6 +4,7 @@
     Author     : Leonel Briones Palacios
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,51 +22,68 @@
         <main>
             <h2 class="text-center py-3 my-5">Crear Usuario</h2>
 
-            <form action="SvUsuario" method="POST" class="needs-validation" novalidate>
+            <c:if test="${not empty mensaje}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert" id="mensajeExito">
+                    <strong>¡Exito!</strong> ${mensaje}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
+            <c:if test="${not empty mensajeError}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" id="mensajeError">
+                    <strong>Error:</strong> ${mensajeError}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
 
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" placeholder="RUN" id="run" name="run" required="true">
-                    <label for="run" class="ps-4">Run:</label>
-                    <div class="invalid-feedback">
-                        Por favor ingrese RUN.
-                    </div>
-                </div>
-                
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" placeholder="Nombre" id="usuario" name="usuario" required="true">
-                    <label for="usuario" class="ps-4">Nombre de Usuario:</label>
-                    <div class="invalid-feedback">
-                        Por favor ingrese Nombre.
-                    </div>
-                </div>
-                
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" placeholder="Apellidos" id="apellido" name="apellido" required="true">
-                    <label for="apellido" class="ps-4">Apellido:</label>
-                    <div class="invalid-feedback">
-                        Por favor ingrese Apellido.
-                    </div>
-                </div>
-                
-                <div class="form-floating mb-3">
-                    <input type="date" class="form-control" required="true" id="fechaNacimiento" name="fechaNacimiento">
-                    <label for="fechaNacimiento" class="ps-4">Fecha de Nacimiento:</label>
-                    <div class="invalid-feedback">
-                        Por favor selecione fecha de Nacimiento.
-                    </div>
-                </div>
+            <!-- INCRUSTAR FORMULARIO USUARIO -->
+            <%@include file="COMPONENTES/FORMS/formUsuario.jsp" %>
 
-                <div class="d-grid gap-2 d-md-block d-md-flex justify-content-md-around mt-3 mb-5">
-                    <input type="submit" value="Guardar" class="btn btn-primary col-md-5">
-                    <input type="reset" value="Limpiar" class="btn btn-danger col-md-5">
-                </div>
-            </form>
+            <c:choose>
+                <c:when test="${tipoUsuario == 'cliente'}">
+                    <!-- INCRUSTAR FORMULARIO CLIENTE -->
+                    <%@include file="COMPONENTES/FORMS/formCliente.jsp" %>
+                </c:when>
+            </c:choose>
+
+            <c:choose>
+                <c:when test="${tipoUsuario == 'administrativo'}">
+                    <!-- INCRUSTAR FORMULARIO ADMINISTRATIVO -->
+                    <%@include file="COMPONENTES/FORMS/formAdministrativo.jsp" %>     
+                </c:when>
+            </c:choose>
+
+            <c:choose>
+                <c:when test="${tipoUsuario == 'profesional'}">
+                    <!-- INCRUSTAR FORMULARIO PROFESIONAL -->
+                    <%@include file="COMPONENTES/FORMS/formProfesional.jsp" %>
+                </c:when>
+            </c:choose>
+
+
+
         </main>
 
         <!-- CUSTOM JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <!-- VALIDATION CSS JS -->
         <script src="assets/js/validationBootstrapCSSJS.js"></script>
+        <!-- MAIN JS -->
+        <script src="assets/js/main.js"></script>
+        <!-- VALIDATION INPUTS -->
+        <script>
+            //ESPERO A QUE EL DOCUMENTO SE ENCUENTRE TOTALMENTE CARGADO
+            document.addEventListener("DOMContentLoaded", function () {
+
+                //SELECCIONO EL ELEMENTO HTML DURACIÓN
+                let inputRun = document.getElementById("run");
+
+                //ESTOY A LA ESCUCHA DE LOS INPUTS PARA LA VALIDACION DE SOLO NUMEROS
+                inputRun.addEventListener("keyup", function () {
+                    validarDuracion(inputRun);
+                });
+
+            });
+        </script>
     </body>
 
     <footer class="py-3">

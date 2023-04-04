@@ -12,7 +12,7 @@ import dao.CapacitacionDAO;
 
 public class MySQLCapacitacionDAO implements CapacitacionDAO{
     
-    final String INSERT = "INSERT INTO Capacitacion(capFecha, capHora, capLugar, capDuracion, cliente_rutCliente) VALUES(?, ?, ?, ? ,?);";
+    final String INSERT = "INSERT INTO Capacitacion(capFecha, capHora, capLugar, capDuracion, rutCliente) VALUES(?, ?, ?, ? ,?);";
     final String UPDATE = "UPDATE Capacitacion SET capFecha = ?, capHora = ?, capLugar = ?, capDuracion = ?, cliente_rutCliente = ? WHERE idCapacitacion = ?;";
     final String DELETE = "DELETE FROM Capacitacion WHERE idCapacitacion = ?;";
     final String GETALL = "SELECT * FROM Capacitacion;";
@@ -71,7 +71,7 @@ public class MySQLCapacitacionDAO implements CapacitacionDAO{
         capacitacion.setHora(rs.getString("capHora"));
         capacitacion.setLugar(rs.getString("capLugar"));
         capacitacion.setDuracion(rs.getInt("capDuracion"));
-        capacitacion.setRutCliente(rs.getInt("cliente_rutCliente"));
+        capacitacion.setRutCliente(rs.getInt("rutCliente"));
         
         return capacitacion;
     }

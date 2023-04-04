@@ -5,6 +5,8 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -45,7 +47,7 @@
                         <tr>
                             <th>${capacitacion.id}</th>
                             <td>${capacitacion.rutCliente}</td>
-                            <td>${capacitacion.fecha}</td>
+                            <td><fmt:formatDate value="${capacitacion.fecha}" pattern="dd.MMM.yyyy" /></td>
                             <td>${capacitacion.hora}</td>
                             <td>${capacitacion.lugar}</td>
                             <td class="text-center"><i class="fa-solid fa-stopwatch px-1 text-primary"></i><span>${capacitacion.duracion} min.</span></td>
