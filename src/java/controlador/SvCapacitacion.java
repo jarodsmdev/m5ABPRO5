@@ -1,5 +1,7 @@
-
-package servlets;
+/**
+ * @author: Leonel Briones Palacios
+ */
+package controlador;
 
 import conexion.ConexionSingleton;
 import dao.DAOException;
@@ -25,7 +27,7 @@ import mysql.MySQLDaoManager;
 
 /**
  *
- * @author jarod
+ * @author Leonel Briones Palacios
  */
 @WebServlet(name = "SvCapacitacion", urlPatterns = {"/SvCapacitacion"})
 public class SvCapacitacion extends HttpServlet {
@@ -87,7 +89,7 @@ public class SvCapacitacion extends HttpServlet {
                 //2. CREAR OBJETO STATEMENT
                 Statement st = conn.createStatement();
                 //3. CREAR LA SENTENCIA SQL
-                String querySQL = "SELECT id, rutCliente, CliNombres, CliApellidos FROM Cliente";
+                String querySQL = "SELECT idCliente, rutCliente, CliNombres, CliApellidos FROM Cliente";
                 //4. EJECUTAR LA QUERY
                 ResultSet rs = st.executeQuery(querySQL);
                 //5. RECORRER EL RESULTSET
@@ -95,7 +97,7 @@ public class SvCapacitacion extends HttpServlet {
                     //5.a LEER CADA CAMPO, PARA CREAR OBJETO CLIENTE EN CADA ITERACIÓN
                     Cliente cliente = new Cliente();
 
-                    cliente.setId(rs.getInt("id"));
+                    cliente.setId(rs.getInt("idCliente"));
                     cliente.setRut(rs.getInt("rutCliente"));
                     cliente.setNombre(rs.getString("CliNombres"));
                     cliente.setApellido(rs.getString("CliApellidos"));
@@ -159,7 +161,7 @@ public class SvCapacitacion extends HttpServlet {
             try {
                 //INVOCAR AL MÉTODO PARA LA INSERCIÓN DEL REGISTRO
                 manager.getCapacitacionDAO().insertar(capacitacion);
-                request.setAttribute("mensaje", "Registro Guardado exitosamente");
+                request.setAttribute("mensaje", "Registro Guardado exitosamente!.");
                 //6. REDIRECCIONAR
                 //RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/capacitacion.jsp");
                 //dispatcher.forward(request, response);

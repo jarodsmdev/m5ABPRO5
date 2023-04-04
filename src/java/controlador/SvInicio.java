@@ -1,32 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+/**
+ * @author: Leonel Briones Palacios
  */
-package servlets;
+package controlador;
 
-
-import dao.DAOException;
-import modelo.Capacitacion;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import mysql.MySQLDaoManager;
+
 
 /**
  *
- * @author Yo
+ * @author jarod
  */
-@WebServlet(name = "SvListarCapacitacion", urlPatterns = {"/SvListarCapacitacion"})
-public class SvListarCapacitacion extends HttpServlet {
+@WebServlet(name = "SvInicio", urlPatterns = {"/SvInicio"})
+public class SvInicio extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +37,10 @@ public class SvListarCapacitacion extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SvListarCapacitacion</title>");            
+            out.println("<title>Servlet SvInicio</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SvListarCapacitacion at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SvInicio at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,30 +58,9 @@ public class SvListarCapacitacion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //List<Capacitacion>listaCapacitacion = new ArrayList<>();
-       
-        HttpSession session = request.getSession();
         
-        if(session.getAttribute("nombre") == null){
-            response.sendRedirect(request.getContextPath() + "/SvLogin");
-        }
-        else {
-            try {
-                //INSTANCIAR EL DAOMANAGER
-                MySQLDaoManager manager = new MySQLDaoManager();
-                //OBTENER LA LISTA QUE TRAE EL MÉTODO OBTENER TODOS
-                List<Capacitacion> listaCapacitacion = manager.getCapacitacionDAO().obtenerTodos();
-                
-                // ENVIAR EL ARRAYLIST CAPACITACION A LA VISTA COMO PARÁMETRO
-                request.setAttribute("listaCapacitacion", listaCapacitacion);
-                
-                // REDIRECCIONAR
-                RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/listarCapacitacion.jsp");
-                dispatcher.forward(request, response);
-            } catch (DAOException ex) {
-                Logger.getLogger(SvListarCapacitacion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        //processRequest(request, response);
+        response.sendRedirect("index.jsp");
     }
 
     /**
@@ -104,6 +75,7 @@ public class SvListarCapacitacion extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
     }
 
     /**

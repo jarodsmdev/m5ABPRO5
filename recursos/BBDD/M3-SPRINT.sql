@@ -9,7 +9,7 @@ USE SPRINT_PREV_RIESGOS;
 
 /*CREAR TABLA Cliente*/
 CREATE TABLE Cliente(
-    id INT NOT NULL AUTO_INCREMENT,
+    idCliente INT NOT NULL AUTO_INCREMENT,
     rutCliente INT(9) NOT NULL,
     nombres VARCHAR(30) NOT NULL,
     apellidos VARCHAR(30) NOT NULL,
@@ -19,25 +19,26 @@ CREATE TABLE Cliente(
     direccion VARCHAR(70) NULL,
     comuna VARCHAR(50) NULL,
     edad INT(3) NOT NULL,
-    PRIMARY KEY (id),
+    idUsuario INT NOT NULL,
+    PRIMARY KEY (idCliente),
     UNIQUE (rutCliente)
 );
 
 /*CREAR TABLA Accidente*/
 CREATE TABLE Accidente(
-    accidenteId INT(9) NOT NULL PRIMARY KEY,
+    accidenteId INT(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     dia DATE NULL,
     hora TIME NULL,
     lugar VARCHAR(50) NOT NULL,
     origen VARCHAR(100) NULL,
     consecuencias VARCHAR(100) NULL,
-    cliente_rutCliente INT(9) NOT NULL
+    idCliente INT(9) NOT NULL
 );
 
 /*CREAR LLAVE FORÁNEA ENTRE ACCIDENTE Y CLIENTE*/
 ALTER TABLE Accidente
 ADD CONSTRAINT accidente_cliente_FK
-FOREIGN KEY (cliente_rutCliente) REFERENCES Cliente(rutCliente);
+FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente);
 
 
 /*CREAR TABLA Capacitacion*/
@@ -48,17 +49,17 @@ CREATE TABLE Capacitacion(
     lugar VARCHAR(50) NOT NULL,
     duracion INT(3) NULL,
     cantidadAsistentes INT(5) NOT NULL,
-    cliente_rutCliente INT(9) NOT NULL
+    rutCliente INT(9) NOT NULL
 );
 
 /*CREAR LLAVE FORÁNEA ENTRE CAPACITACION Y CLIENTE*/
 ALTER TABLE Capacitacion
 ADD CONSTRAINT capacitacion_cliente_FK
-FOREIGN KEY (cliente_rutCliente) REFERENCES Cliente(rutCliente);
+FOREIGN KEY (rutCliente) REFERENCES Cliente(rutCliente);
 
 /*CREAR TABLA Asistentes*/
 CREATE TABLE Asistentes(
-    idAsistente INT(9) NOT NULL PRIMARY KEY,
+    idAsistente INT(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombres VARCHAR(100) NOT NULL,
     edad INT(3) NOT NULL,
     capacitacion_idCapacitacion INT(9) NOT NULL
@@ -111,7 +112,7 @@ RENAME COLUMN consecuencias TO acciConsecuencias;
 
 /*CREAR TABLA Visita*/
 CREATE TABLE Visita(
-    idVisita INT(9) NOT NULL PRIMARY KEY,
+    idVisita INT(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     visFecha DATE NOT NULL,
     visHora TIME NULL,
     visLugar VARCHAR(50) NOT NULL,
@@ -162,20 +163,23 @@ FOREIGN KEY (checkeos_id) REFERENCES checkeos(id);
 
 
 CREATE TABLE usuarios(
-	id INT NOT NULL PRIMARY KEY,
-    run INT NOT NULL,
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    run INT NOT NULL UNIQUE,
 	nombre VARCHAR(20) NULL,
     apellidos VARCHAR(20) NULL,
     fechaNac DATE NOT NULL
 );
 
-ALTER TABLE usuarios
-ADD COLUMN idUsuario INT NULL /*FK CLIENTE*/;
+/*ALTER TABLE usuarios
+ADD COLUMN idUsuario INT NULL;*/ /*FK CLIENTE*/
 
-ALTER TABLE usuarios
+/*ALTER TABLE usuarios
 ADD CONSTRAINT usuario_cliente_FK
-FOREIGN KEY (idUsuario) REFERENCES Cliente(rutCliente);
-
+FOREIGN KEY (idUsuario) REFERENCES Cliente(idUsuario);
+*/
+ALTER TABLE Cliente
+ADD CONSTRAINT cliente_usuario_FK
+FOREIGN KEY (idUsuario) REFERENCES usuarios(id);
 
 CREATE TABLE administrativos(
 	run INT NOT NULL PRIMARY KEY,
@@ -188,7 +192,8 @@ CREATE TABLE administrativos(
 
 ALTER TABLE administrativos
 ADD CONSTRAINT administrativos_usuario_FK
-FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario);
+FOREIGN KEY (idUsuario) REFERENCES usuarios(id);
+
 
 CREATE TABLE profesionales(
 	rut INT NOT NULL PRIMARY KEY,
@@ -202,7 +207,8 @@ CREATE TABLE profesionales(
 
 ALTER TABLE profesionales
 ADD CONSTRAINT profesionales_usuario_FK
-FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario);
+FOREIGN KEY (idUsuario) REFERENCES usuarios(id);
+
 
 /*A las tablas anteriores debe sumar las siguientes*/
 
@@ -221,7 +227,7 @@ CREATE TABLE pagos(
 
 ALTER TABLE pagos
 ADD CONSTRAINT pagos_cliente_FK
-FOREIGN KEY (idCliente) REFERENCES Cliente(rutCliente);
+FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente);
 
 /*2.- Una tabla que registre asesorías realizadas a los clientes. Una asesoría es una actividad
 de verificación de situaciones que pueden generar problemas en el mediano plazo. Por
@@ -259,27 +265,38 @@ FOREIGN KEY (idAsesoria) REFERENCES asesoria(id);
 /*1.- Script completo con la creación de la base de datos. Debe crear las tablas en el orden lógico, y debe considerar en ello todas las restricciones y elementos que sea necesario abordar*/
 /*ESTE MISMO SCRIPT ES EL ENTREGABLE:
  PERMITE CREAR BASE DE DATOS, CREAR TABLAS, CREAR LAS RELACIONES ENTRE TABLAS, E INSERCIÓN DE DATOS PARA POSTERIOR CONSULTA*/
-
+ 
+ /*INSERTAR REGISTROS EN LA TABLA USUARIOS*/
+INSERT INTO usuarios
+(run, nombre, apellidos, fechaNac)
+VALUES
+('123456', 'Matias', 'Calderon', '2000-06-02'),
+('987654', 'Priscila', 'Carrillo', '1995-05-03'),
+('147852', 'Leonel', 'Briones', '1983-09-05'),
+('963258', 'Adrian', 'Fredes', '1995-03-15'),
+('159753', 'Benjamin', 'Pavez', '1998-05-02');
 /*2.-Al script anterior debe agregar consultas de inserción de registros en cada tabla. Se pide como mínimo tres registros en cada tabla insertados. Debe cuidar el orden lógico de inserción de datos, a fin de no generar conflictos con las restricciones*/
 /*INSERTAR REGISTROS A LA TABLA CLIENTES*/
 INSERT INTO Cliente
-(rutCliente, cliNombres, cliApellidos, cliTelefono, cliAfp, cliSistemaSalud, cliDireccion, cliComuna, cliEdad)
+(rutCliente, cliNombres, cliApellidos, cliTelefono, cliAfp, cliSistemaSalud, cliDireccion, cliComuna, cliEdad, idUsuario)
 VALUES
-(1, "Benjamín", "Pavéz", 555555, "AFP A", 1, "", "Viña del Mar", 25 ),
-(2, "Matías", "Calderón", 44444, "AFP B", 2, "", "Viña del Mar", 22 ),
-(3, "Leonel", "Briones", 33333, "AFP C", 1, "", "Quillota", 40 ),
-(5, "Priscila", "Carrillo", 222222, "AFP A", 2, "", "Valparaíso", 28 ),
-(4, "Adrián", "Fredes", 111111, "AFP C", 1, "", "Casablanca", 28 )
+('159753', "Benjamín", "Pavéz", 555555, "AFP A", 1, "", "Viña del Mar", 25, 5),
+('123456', "Matías", "Calderón", 44444, "AFP B", 2, "", "Viña del Mar", 22, 1),
+('147852', "Leonel", "Briones", 33333, "AFP C", 1, "", "Quillota", 40, 3),
+('987654', "Priscila", "Carrillo", 222222, "AFP A", 2, "", "Valparaíso", 28, 2),
+('963258', "Adrián", "Fredes", 111111, "AFP C", 1, "", "Casablanca", 28, 4)
 ;
 
 /*DATOS BENJAMÍN PAVÉZ*/
 /*INSERTAR REGISTROS TABLA VISITA*/
-INSERT INTO Visita VALUES 
-('1', '25-07-23', '16:30', 'Nogales', 'Visita sin novedades','5'),
-('2', '28-02-23', '17:20', 'Ventana', 'Visita sin novedades','4'),
-('3', '12-01-23', '18:00', 'Quintero', 'Atencion en enfermeria por malestares','1'),
-('4', '30-12-22', '19:00', 'Valparaiso','Visita sin novedades','3'),
-('5', '15-02-23', '12:30', 'Viña del mar', 'Visita sin novedades','2');
+INSERT INTO Visita
+(visFecha, visHora, visLugar, visComentarios, cliente_rutCliente)
+VALUES 
+('25-07-23', '16:30', 'Nogales', 'Visita sin novedades','159753'),
+('28-02-23', '17:20', 'Ventana', 'Visita sin novedades','963258'),
+('12-01-23', '18:00', 'Quintero', 'Atencion en enfermeria por malestares','123456'),
+('30-12-22', '19:00', 'Valparaiso','Visita sin novedades','147852'),
+('15-02-23', '12:30', 'Viña del mar', 'Visita sin novedades','987654');
 
 /*INSERTAR REGISTROS TABLA CHECKEOS*/
 INSERT INTO checkeos VALUES
@@ -290,12 +307,14 @@ INSERT INTO checkeos VALUES
 ('5','Raquel');
 
 /*INSERTAR REGISTROS TABLA VISITACHECKEO*/
-INSERT INTO visitaCheckeo VALUES  
-('1','1'),
-('2','2'),
-('3','3'),
-('4','4'),
-('5','5');
+INSERT INTO visitaCheckeo
+(idVisita, idCheckeo)
+VALUES 
+('1', '1'),
+('2', '2'),
+('3', '3'),
+('4', '4'),
+('5', '5');
 
 /*INSERTAR REGISTROS TABLA RESULTADOCHECKEO*/
 INSERT INTO resultadoCheckeo VALUES
@@ -306,12 +325,12 @@ INSERT INTO resultadoCheckeo VALUES
 ('5','CUMPLE');
 
 /*INSERTAR REGISTROS TABLA USUARIOS*/
-INSERT INTO usuarios VALUES
+/*INSERT INTO usuarios VALUES
 ('1','1','Matias','Calderon','2000-06-02','1'),
 ('2','2','Priscila','Carrillo','1995-05-03','2'),
 ('3','3','Leonel','Briones','1983-09-05','3'),
 ('4','4','Adrian','Fredes','1995-03-15','4'),
-('5','5','Benjamin','Pavez','1998-05-02','5');
+('5','5','Benjamin','Pavez','1998-05-02','5');*/
 
 /*INSERTAR REGISTROS A LA TABLA PAGOS*/
 INSERT INTO pagos
@@ -357,13 +376,13 @@ VALUES
 /*datos PRISCILA CARRILLO*/
 /*INSERTAR REGISTROS EN TABLA CAPACITACION*/
 INSERT INTO Capacitacion
-(idCapacitacion, capFecha, capHora, capLugar, capDuracion, cliente_rutCliente)
+(idCapacitacion, capFecha, capHora, capLugar, capDuracion, rutCliente)
 VALUES 
-(6, '07-02-23', '08:00', "Viña del mar", 35, 1 ),
-(7, '08-02-23', '09:00', "Valparaiso", 40, 2 ),
-(8, '09-02-23', '10:00', "Limache", 45, 3 ),
-(9, '10-02-23', '11:00', "Peñablanca", 2, 5 ),
-(10, '11-02-23', '12:00', "Quilpue", 50, 4 )
+(6, '07-02-23', '08:00', "Viña del mar", 35, 123456 ),
+(7, '08-02-23', '09:00', "Valparaiso", 40, 987654 ),
+(8, '09-02-23', '10:00', "Limache", 45, 147852),
+(9, '10-02-23', '11:00', "Peñablanca", 2, 159753),
+(10, '11-02-23', '12:00', "Quilpue", 50, 963258 )
 ;
 
 /*INSERTAR REGISTROS EN TABLA ASISTENTES*/
@@ -379,7 +398,7 @@ VALUES
 
 /*DATOS MATIAS CALDERÓN*/
 /*INSERTAR REGISTROS EN TABLA ACCIDENTE*/
-INSERT INTO Accidente (idAccidente, acciFecha, acciHora, acciLugar, acciOrigen, acciConsecuencias, cliente_rutCliente) 
+INSERT INTO Accidente (idAccidente, acciFecha, acciHora, acciLugar, acciOrigen, acciConsecuencias, idCliente) 
 VALUES (11, '05-04-23', '22:00', 'Providencia', 'mal estacionado', 'parteEmpadronado', 1),
 		(12, '06-07-22', '21:30', 'Calle7', 'atropello', ' heridos', 2),
 		(13, '11-03-22', '15:45', 'Calle mirador', 'colicionPare', ' herido', 3),
@@ -391,15 +410,17 @@ VALUES (11, '05-04-23', '22:00', 'Providencia', 'mal estacionado', 'parteEmpadro
 /*Finalmente, en un archivo aparte o bien en el mismo script indicado en el punto
 inicial, genere tres consultas de búsqueda de datos, que realicen lo siguiente:*/
 
+
 /*a) Realice una consulta que permita listar todas las capacitaciones de un cliente en
 particular, indicando el nombre completo, la edad y el correo electrónico de los asistentes.*/
+/*
 SELECT a.asisNombreCompleto, a.asisEdad, a.asisCorreo, c.idCapacitacion
 FROM Capacitacion c
 JOIN Asistentes a
 ON a.capacitacion_idCapacitacion = c.idCapacitacion
 WHERE cliente_rutCliente = 2
 ;
-
+*/
 /*
 +--------------------+----------+-----------------------+----------------+
 | asisNombreCompleto | asisEdad | asisCorreo            | idCapacitacion |
@@ -412,6 +433,7 @@ WHERE cliente_rutCliente = 2
 
 /*b) Realice una consulta que permita desplegar todas las visitas en terreno realizadas a los clientes que sean de la comuna de Valparaíso. Por cada visita debe indicar todos los chequeos que se hicieron en ella, junto con el estado de cumplimiento de cada uno.*/
 
+/*
 SELECT Cliente.cliNombres, Cliente.cliComuna, Visita.idVisita, visitaCheckeo.idCheckeo, checkeos.id, checkeos.nombre,resultadoCheckeo.resultadoCheckeo
 FROM resultadoCheckeo
 INNER JOIN checkeos
@@ -424,7 +446,7 @@ INNER JOIN Cliente
 ON Cliente.rutCliente = Visita.cliente_rutCliente
 WHERE cliComuna = 'Valparaíso'
 ;
-
+*/
 /*
 +------------+-------------+----------+-----------+----+---------+------------------+
 | cliNombres | cliComuna   | idVisita | idCheckeo | id | nombre  | resultadoCheckeo |
@@ -438,13 +460,13 @@ WHERE cliComuna = 'Valparaíso'
 /*c) Realice una consulta que despliegue los accidentes registrados para todos los clientes, indicando los datos de detalle del accidente, y el nombre, apellido, RUT y teléfono del
 cliente al que se asocia dicha situación*/
 
-SELECT Accidente.acciFecha, Accidente.acciHora, Accidente.acciLugar, Accidente.acciOrigen, Accidente.acciConsecuencias, Cliente.cliNombres
+/*SELECT Accidente.acciFecha, Accidente.acciHora, Accidente.acciLugar, Accidente.acciOrigen, Accidente.acciConsecuencias, Cliente.cliNombres
 FROM Accidente
 INNER JOIN Cliente
 ON Cliente.rutCliente = Accidente.cliente_rutCliente
 ORDER BY Accidente.acciFecha
 ;
-
+*/
 /*
 +------------+----------+---------------+------------------+-------------------+------------+
 | acciFecha  | acciHora | acciLugar     | acciOrigen       | acciConsecuencias | cliNombres |

@@ -4,6 +4,7 @@ import conexion.ConexionSingleton;
 import dao.CapacitacionDAO;
 import dao.ClienteDAO;
 import dao.DAOManager;
+import dao.UsuarioDAO;
 import java.sql.*;
 
 
@@ -12,6 +13,7 @@ public class MySQLDaoManager implements DAOManager{
     
     private CapacitacionDAO capacitacion = null;
     private ClienteDAO cliente = null;
+    private UsuarioDAO usuario = null;
     
     public MySQLDaoManager(){
         conn = ConexionSingleton.getConexion();
@@ -39,4 +41,12 @@ public class MySQLDaoManager implements DAOManager{
         System.out.println(capacitaciones);
     }
     */
+
+    @Override
+    public UsuarioDAO getUsuarioDAO() {
+        if(usuario == null){
+            usuario = new MySQLUsuarioDAO(conn);
+        }
+        return usuario;
+    }
 }

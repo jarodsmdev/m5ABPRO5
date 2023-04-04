@@ -6,7 +6,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<footer class="card">
+<footer class="card my-5">
     <div class="card-header">
       Prevención de Riesgos
     </div>
