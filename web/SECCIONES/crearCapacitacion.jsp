@@ -33,10 +33,10 @@
                 <form action="SvCapacitacion" method="POST" class="needs-validation" novalidate>
 
                     <div class="form-floating mb-3">
-                        <select name="rutCliente" id="rutCliente" class="form-select" required id="rutCliente">
-                            <option selected disabled value=""">Seleccione un Cliente</option>
+                        <select name="rutUsuario" id="rutUsuario" class="form-select" required id="rutUsuario">
+                            <option selected disabled value="">Seleccione un Cliente</option>
                             <c:forEach var="cliente" items="${listaClientes}">
-                                <option value="${cliente.rut}">${cliente.obtenerNombreApellido()}</option>
+                                <option value="${cliente.rutUsuario}">${cliente.nombreUsuario}</option>
                             </c:forEach>
                         </select>
                         <label for="rutCliente">Cliente:</label>

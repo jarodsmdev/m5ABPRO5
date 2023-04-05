@@ -4,13 +4,21 @@
  */
 package controlador;
 
+import dao.DAOException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import modelo.Usuario;
+import mysql.MySQLDaoManager;
 
 /**
  *
@@ -57,7 +65,30 @@ public class SvListarUsuarios extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        HttpSession session = request.getSession();
+        
+        if(session.getAttribute("nombre") == null){
+            response.sendRedirect(request.getContextPath() + "/SvLogin");
+        }
+        else {
+            try {
+                //INSTANCIAR EL DAOMANAGER
+                MySQLDaoManager manager = new MySQLDaoManager();
+                //OBTENER LA LISTA QUE TRAE EL MÉTODO OBTENER TODOS
+                List<Usuario> listaUsuarios = manager.getUsuarioDAO().obtenerTodos();
+                
+                // ENVIAR EL ARRAYLIST USUARIOS A LA VISTA COMO PARÁMETRO
+                request.setAttribute("listaUsuarios", listaUsuarios);
+                
+                // REDIRECCIONAR
+                RequestDispatcher dispatcher = request.getRequestDispatcher("SECCIONES/listarUsuarios.jsp");
+                dispatcher.forward(request, response);
+            } catch (DAOException ex) {
+                Logger.getLogger(SvListarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }
 
     /**

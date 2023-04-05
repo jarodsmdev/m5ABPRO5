@@ -19,12 +19,25 @@
           </li>
           <li class="nav-item">
                 <a class="nav-link ${pageContext.request.requestURI.endsWith('/SvContacto') ? 'active' : ''}" href="${pageContext.request.contextPath}/SvContacto">Contacto</a>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Usuarios
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/SvUsuarios">Crear Usuarios</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/SvListarUsuarios">Listar Usuarios</a></li>
+            </ul>
           </li>
-          <li class="nav-item">
-                <a class="nav-link ${pageContext.request.requestURI.endsWith('/SvCapacitacion') ? 'active' : ''}" href="${pageContext.request.contextPath}/SvCapacitacion">Capacitación</a>
-          </li>
-          <li class="nav-item">
-                <a class="nav-link ${pageContext.request.requestURI.endsWith('/SvListarCapacitacion') ? 'active' : ''}" href="${pageContext.request.contextPath}/SvListarCapacitacion">Lista de Capacitaciones</a>
+                
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Capacitaciones
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/SvCapacitacion">Crear Capacitacion</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/SvListarCapacitacion">Listar Capacitaciones</a></li>
+            </ul>
           </li>
           
           <% if(request.getSession().getAttribute("nombre") != null){ %>

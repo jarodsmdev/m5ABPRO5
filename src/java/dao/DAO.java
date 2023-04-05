@@ -2,7 +2,6 @@
 package dao;
 
 import java.util.List;
-import modelo.Cliente;
 
 
 public interface DAO <T, K>{
